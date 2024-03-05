@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Ngân's gift</title>
+    <link rel="stylesheet" href="heart.css" />
+    <link rel="stylesheet" href="card.css" />
+    <link rel="stylesheet" href="button.css" />
+    <!-- Just find it in google -->
+    <link
+      href="http://fonts.googleapis.com/css?family=Great+Vibes"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <a href="#" onclick="startScript()">
+        <span>Em ưi!!</span>
+        <span style="font-size: 12px">Bấm vào đây nò!!</span>
+      </a>
+    </div>
+
+    <div class="heart-container"></div>
+
+    <div class="card">
+      <div class="imgBox">
+        <img src="image.jpg" alt="" />
+        <img src="image1.jpg" alt="" />
+      </div>
+      <div class="details">
+        <div class="content">
+          <h2>Gửi <span>Ngân Cute</span></h2>
+          <br />
+          <p>
+            Anh chúc cho em có một ngày 8/3 thật vui vẻ, hạnh phúc và nhiều ý
+            nghĩa. Anh biết sắp tới em phải chọn cho mình một con đường mới để
+            bước tiếp, anh cũng mong rằng mọi điều thuận lợi và suôn sẻ sẽ đến
+            với em. Cố lên nha Ngân, em sẽ làm được mà - cô bé dễ thương <3
+          </p>
+          <br />
+
+          <h2 style="text-align: right !important">Love you</h2>
+          <p style="text-align: right">Huy Nguyen</p>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+      integrity="sha512-z4OUqw38qNLpn1libAN9BsoDx6nbNFio5lA6CuTp9NlK83b89hgyCVq+N5FdBJptINztxn1Z3SaKSKUS5UP60Q=="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      function startScript() {
+        let container = document.querySelector(".container");
+        anime({
+          targets: ".container",
+          opacity: 0,
+          duration: 1000,
+          complete: function () {
+            container.style.display = "none";
+            showHeartAndCard();
+          },
+        });
+      }
+
+      function showHeartAndCard() {
+        animateHearts();
+        let hearts = document.querySelectorAll(".heart");
+        hearts.forEach(function (heart) {
+          heart.classList.add("heart-shadow");
+          heart.classList.add("heart-right-shadow");
+          heart.classList.add("heart-left-shadow");
+        });
+        let container = document.querySelector(".heart-container");
+
+        anime({
+          targets: ".heart-container",
+          opacity: 1,
+          duration: 2000,
+          complete: function () {
+            //Change background to correct color
+            container.style.background = "#e80202";
+
+            //display the card
+            let card = document.querySelector(".card");
+            card.style.display = "flex";
+            anime({
+              targets: ".card",
+              opacity: 1,
+              duration: 500,
+              complete: function () {
+                setTimeout(function () {
+                  card.classList.add("card-active-hover");
+                }, 2500);
+              },
+            });
+          },
+        });
+      }
+    </script>
+
+    <script>
+      // Create alot of heart
+      const container = document.querySelector(".heart-container");
+      for (var i = 1; i <= 100; i++) {
+        const hearts = document.createElement("div");
+        hearts.classList.add("heart");
+        container.appendChild(hearts);
+      }
+
+      // Make the animation
+      function animateHearts() {
+        anime({
+          targets: ".heart",
+          translateX: function () {
+            return anime.random(-1000, 1000);
+          },
+          translateY: function () {
+            return anime.random(-700, 700);
+          },
+          rotate: 45,
+          scale: function () {
+            return anime.random(1, 8);
+          },
+          easing: "easeInOutBack",
+          duration: 3000,
+          delay: anime.stagger(10),
+          complete: animateHearts,
+        });
+      }
+    </script>
+  </body>
+</html>
